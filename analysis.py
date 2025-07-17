@@ -21,8 +21,7 @@ dropoff_query = """
 SELECT stage, COUNT(*) AS dropoffcount
 FROM customer_journey
 WHERE Action = 'Drop-off'
-GROUP BY Stage
-ORDER BY DropOffCount DESC;
+GROUP BY Stage;
 """
 dropoff_df = run_query(dropoff_query, "Customer Journey Drop-off Points")
 
@@ -30,7 +29,6 @@ dropoff_df = run_query(dropoff_query, "Customer Journey Drop-off Points")
 duration_query = """
 SELECT Stage, ROUND(AVG(Duration), 2) AS AvgDuration
 FROM customer_journey
-WHERE Duration IS NOT NULL
 GROUP BY Stage;
 """
 duration_df = run_query(duration_query, "Average Duration Per Stage")
@@ -43,14 +41,14 @@ SELECT
     COUNT(r.ReviewID) AS ReviewCount
 FROM customer_reviews r
 JOIN products p ON r.ProductID = p.ProductID
-GROUP BY r.ProductID
+GROUP BY p.ProductName
 ORDER BY AvgRating DESC;
 """
 rating_df = run_query(rating_query, "Product Ratings Summary")
 
 # 4. Returning vs First-Time Buyers
 repeat_buyers_query = """
-SELECT 
+SELECT
     c.CustomerID,
     COUNT(DISTINCT j.JourneyID) AS TotalPurchases
 FROM customer_journey j
@@ -63,7 +61,7 @@ repeat_df = run_query(repeat_buyers_query, "Repeat vs First-Time Buyers")
 
 # 5. Best Performing Products by Region
 region_query = """
-SELECT 
+SELECT
     g.Country,
     p.ProductName,
     COUNT(j.JourneyID) AS TotalPurchases

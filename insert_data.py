@@ -1,7 +1,6 @@
 import pandas as pd
 import mysql.connector as db
 
-
 # Load all uploaded CSVs
 customer_journey_df = pd.read_csv(r'E:\guvi\project\customer_behavior_analysis\data\customer_journey.csv')
 customer_reviews_df = pd.read_csv(r"E:\guvi\project\customer_behavior_analysis\data\customer_reviews.csv")
