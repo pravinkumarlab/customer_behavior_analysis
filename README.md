@@ -55,10 +55,18 @@ Password: root
 customer_behavior_analysis/
 │
 ├── data/
+│   ├── customer_journey.csv
+│   ├── customer_reviews.csv
+│   ├── customers.csv
+│   ├── products.csv
+│   ├── geography.csv
+│   └── engagement_data.csv
+│
 ├── table_creation.py
 ├── insert_data.py
 ├── analysis.py
 ├── requirements.txt
+│
 ├── Customer Behavior Analysis Report.doc
 ├── Reply Mail.docx
 └── README.md
@@ -100,4 +108,4 @@ python analysis.py
 
 ## 👤 Author
 Pravin Kumar S  
-GitHub: https://github.com/pravinkumarlab
+LinkedIn: www.linkedin.com/in/pravinkumar-s-49b23b231
