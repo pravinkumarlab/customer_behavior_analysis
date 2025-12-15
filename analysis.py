@@ -75,5 +75,48 @@ ORDER BY g.Country, TotalPurchases DESC;
 """
 region_df = run_query(region_query, "Top Products by Region")
 
+# 6. User Engagement by Content Type
+engagement_query = """
+SELECT 
+    LOWER(ContentType) AS ContentType,
+    ROUND(AVG(CAST(SUBSTRING_INDEX(ViewsClicksCombined, '-', 1) AS UNSIGNED)), 2) AS AvgViews,
+    ROUND(AVG(CAST(SUBSTRING_INDEX(ViewsClicksCombined, '-', -1) AS UNSIGNED)), 2) AS AvgClicks,
+    ROUND(AVG(Likes), 2) AS AvgLikes
+FROM engagement_data
+GROUP BY LOWER(ContentType)
+ORDER BY AvgClicks DESC;
+"""
+engagement_df = run_query(engagement_query, "Engagement Rate by Content Type")
+
+
+# # 7. Conversion Rate from Engagement to Purchase
+# conversion_query = """
+# SELECT 
+#     COUNT(DISTINCT e.CustomerID) AS EngagedUsers,
+#     (SELECT COUNT(DISTINCT j.CustomerID)
+#      FROM customer_journey j
+#      WHERE j.Action = 'Purchase') AS Buyers,
+#     ROUND(
+#         (SELECT COUNT(DISTINCT j.CustomerID)
+#          FROM customer_journey j
+#          WHERE j.Action = 'Purchase') * 100.0 / COUNT(DISTINCT e.CustomerID), 2
+#     ) AS ConversionRate
+# FROM engagement_data e;
+# """
+# conversion_df = run_query(conversion_query, "Engagement to Purchase Conversion Rate")
+
+# 8. Top Performing Products by Engagement
+top_engaged_products_query = """
+SELECT 
+    p.ProductName,
+    COUNT(e.EngagementID) AS EngagementCount
+FROM engagement_data e
+JOIN products p ON e.ProductID = p.ProductID
+GROUP BY p.ProductName
+ORDER BY EngagementCount DESC;
+"""
+top_engaged_df = run_query(top_engaged_products_query, "Top Engaged Products")
+
+
 cursor.close()
 db_connection.close()
