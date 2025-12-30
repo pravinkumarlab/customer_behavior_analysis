@@ -52,6 +52,7 @@ Password: root
 ---
 
 ## 📁 Project Structure
+```
 customer_behavior_analysis/
 │
 ├── data/
@@ -70,7 +71,7 @@ customer_behavior_analysis/
 ├── Customer Behavior Analysis Report.doc
 ├── Reply Mail.docx
 └── README.md
-
+```
 ---
 
 ## 🔄 Project Workflow
